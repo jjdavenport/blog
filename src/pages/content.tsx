@@ -1,5 +1,6 @@
 import { PostLink, Post } from "../components/content";
 import data from "../assets/data.json";
+import { useParams } from "react-router";
 
 export const MainPage = () => {
   return (
@@ -8,7 +9,7 @@ export const MainPage = () => {
         <header>
           <h1 className="text-3xl dark:text-white">Posts</h1>
         </header>
-        <ul>
+        <ul className="flex flex-col gap-4">
           {data.map((i) => (
             <PostLink
               key={i.id}
@@ -25,19 +26,35 @@ export const MainPage = () => {
   );
 };
 
+type FilteredDataType = {
+  id: string;
+  month: string;
+  date: number;
+  year: number;
+  title: string;
+  content: string[];
+};
+
 export const PostPage = () => {
+  const param = useParams();
+  const id = param.id;
+
+  const filteredData: FilteredDataType | undefined = data.find(
+    (i) => i.id === id,
+  );
+
+  if (!filteredData) return;
+
   return (
     <>
-      {data.map((i) => (
-        <Post
-          key={i.id}
-          month={i.month}
-          date={i.date}
-          year={i.year}
-          title={i.title}
-          content={i.content}
-        />
-      ))}
+      <Post
+        key={filteredData.id}
+        month={filteredData.month}
+        date={filteredData.date}
+        year={filteredData.year}
+        title={filteredData.title}
+        content={filteredData.content}
+      />
     </>
   );
 };

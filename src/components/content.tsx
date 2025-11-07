@@ -114,7 +114,7 @@ export const Post = ({
   year,
 }: {
   title: string;
-  content: string;
+  content: string[];
   month: string;
   date: number;
   year: number;
@@ -128,7 +128,11 @@ export const Post = ({
           <span>{`${date},`}</span>
           <span>{year}</span>
         </span>
-        <p className="text-white">{content}</p>
+        {content.map((i, index) => (
+          <p key={index} className="text-white">
+            {i}
+          </p>
+        ))}
       </div>
     </>
   );
