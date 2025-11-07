@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import { MainPage } from "./pages/content.tsx";
+import { MainPage, PostPage } from "./pages/content.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
         path: "",
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: "post/:id",
+        element: <PostPage />,
       },
     ],
   },

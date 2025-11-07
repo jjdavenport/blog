@@ -1,4 +1,4 @@
-import { Post } from "../components/content";
+import { PostLink, Post } from "../components/content";
 
 export const MainPage = () => {
   return (
@@ -8,8 +8,8 @@ export const MainPage = () => {
           <h1 className="text-3xl dark:text-white">Posts</h1>
         </header>
         <ul>
-          <Post
-            href=""
+          <PostLink
+            href="post/1"
             title="First post"
             month="October"
             date={6}
@@ -17,6 +17,23 @@ export const MainPage = () => {
           />
         </ul>
       </div>
+    </>
+  );
+};
+
+export const PostPage = () => {
+  return (
+    <>
+      <Post
+        month="October"
+        date={1}
+        year={2026}
+        title="Post title"
+        content="gjkdffgjdfkgjkdf
+      gfdlgjkfhj
+      sdgpklkdfjgkfdlg
+      gfkhjkfghjgf"
+      />
     </>
   );
 };

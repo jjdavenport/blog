@@ -60,7 +60,7 @@ export const Footer = () => {
   );
 };
 
-export const Post = ({
+export const PostLink = ({
   title,
   href,
   month,
@@ -97,6 +97,33 @@ export const Main = ({ children }: { children: ReactNode }) => {
       <main className="flex w-full flex-1 flex-col items-center px-4">
         {children}
       </main>
+    </>
+  );
+};
+
+export const Post = ({
+  title,
+  content,
+  month,
+  date,
+  year,
+}: {
+  title: string;
+  content: string;
+  month: string;
+  date: number;
+  year: number;
+}) => {
+  return (
+    <>
+      <div className="flex w-full max-w-5xl flex-col gap-4">
+        <span className="text-2xl dark:text-white">{title}</span>
+        <span className="flex gap-1 dark:text-white">
+          <span>{month}</span>
+          <span>{date}</span>, <span>{year}</span>
+        </span>
+        <p className="text-white">{content}</p>
+      </div>
     </>
   );
 };
