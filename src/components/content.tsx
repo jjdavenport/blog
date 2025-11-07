@@ -14,14 +14,14 @@ export const Wrapper = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const Nav = () => {
+export const Nav = ({ config }: { config: { title: string } }) => {
   const { darkMode, setDarkMode } = useTheme();
   return (
     <>
       <nav className="flex w-full items-center justify-center border-b p-4 dark:border-b-white">
         <div className="flex w-full max-w-5xl items-center justify-between">
-          <Link to="" className="text-xl hover:underline dark:text-white">
-            Blog
+          <Link to="" className="text-2xl hover:underline dark:text-white">
+            {config.title}
           </Link>
           <button
             aria-label={darkMode ? "light mode" : "dark mode"}
@@ -41,18 +41,22 @@ export const Nav = () => {
   );
 };
 
-export const Footer = () => {
+export const Footer = ({
+  config,
+}: {
+  config: { title: string; link: string; linkText: string };
+}) => {
   return (
     <>
       <footer className="flex w-full justify-center border-t p-4 dark:border-t-white">
         <div className="flex w-full max-w-5xl justify-between">
-          <span className="text-lg dark:text-white">Blog</span>
+          <span className="text-lg dark:text-white">{config.title}</span>
           <a
             className="flex items-center gap-2 hover:underline dark:text-white"
-            href="https://github.com/jjdavenport"
+            href={config.link}
           >
             <Github className="size-6 dark:fill-white" />
-            jjdavenport
+            {config.linkText}
           </a>
         </div>
       </footer>
@@ -78,7 +82,8 @@ export const PostLink = ({
       <li className="flex flex-col gap-1">
         <span className="flex gap-1 dark:text-white">
           <span>{month}</span>
-          <span>{date}</span>, <span>{year}</span>
+          <span>{`${date},`}</span>
+          <span>{year}</span>
         </span>
         <Link
           className="w-fit text-2xl hover:underline dark:text-white"
@@ -117,10 +122,11 @@ export const Post = ({
   return (
     <>
       <div className="flex w-full max-w-5xl flex-col gap-4">
-        <span className="text-2xl dark:text-white">{title}</span>
+        <h2 className="text-4xl dark:text-white">{title}</h2>
         <span className="flex gap-1 dark:text-white">
           <span>{month}</span>
-          <span>{date}</span>, <span>{year}</span>
+          <span>{`${date},`}</span>
+          <span>{year}</span>
         </span>
         <p className="text-white">{content}</p>
       </div>

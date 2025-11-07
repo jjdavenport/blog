@@ -1,4 +1,5 @@
 import { PostLink, Post } from "../components/content";
+import data from "../assets/data.json";
 
 export const MainPage = () => {
   return (
@@ -8,13 +9,16 @@ export const MainPage = () => {
           <h1 className="text-3xl dark:text-white">Posts</h1>
         </header>
         <ul>
-          <PostLink
-            href="post/1"
-            title="First post"
-            month="October"
-            date={6}
-            year={2025}
-          />
+          {data.map((i) => (
+            <PostLink
+              key={i.id}
+              href={`post/${i.id}`}
+              title={i.title}
+              month={i.month}
+              date={i.date}
+              year={i.year}
+            />
+          ))}
         </ul>
       </div>
     </>
@@ -24,16 +28,16 @@ export const MainPage = () => {
 export const PostPage = () => {
   return (
     <>
-      <Post
-        month="October"
-        date={1}
-        year={2026}
-        title="Post title"
-        content="gjkdffgjdfkgjkdf
-      gfdlgjkfhj
-      sdgpklkdfjgkfdlg
-      gfkhjkfghjgf"
-      />
+      {data.map((i) => (
+        <Post
+          key={i.id}
+          month={i.month}
+          date={i.date}
+          year={i.year}
+          title={i.title}
+          content={i.content}
+        />
+      ))}
     </>
   );
 };
