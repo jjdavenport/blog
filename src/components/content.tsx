@@ -44,20 +44,26 @@ export const Nav = ({ config }: { config: { title: string } }) => {
 export const Footer = ({
   config,
 }: {
-  config: { title: string; link: string; linkText: string };
+  config: {
+    title: string;
+    links: { link: string; text: string }[];
+  };
 }) => {
   return (
     <>
       <footer className="flex w-full justify-center border-t p-4 dark:border-t-white">
         <div className="flex w-full max-w-5xl justify-between">
           <span className="text-lg dark:text-white">{config.title}</span>
-          <a
-            className="flex items-center gap-2 hover:underline dark:text-white"
-            href={config.link}
-          >
-            <Github className="size-6 dark:fill-white" />
-            {config.linkText}
-          </a>
+          {config.links.map((i, index) => (
+            <a
+              key={index}
+              className="flex items-center gap-2 hover:underline dark:text-white"
+              href={i.link}
+            >
+              <Github className="size-6 dark:fill-white" />
+              {i.text}
+            </a>
+          ))}
         </div>
       </footer>
     </>
