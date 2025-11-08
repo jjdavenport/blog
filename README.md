@@ -9,8 +9,13 @@ Jekyll clone with json instead of markdown
 ```json
 {
   "title": "blog",
-  "link": "https://github.com/jjdavenport",
-  "linkText": "jjdavenport"
+  "icon": "icon.svg",
+  "links": [
+    {
+      "link": "https://github.com/jjdavenport",
+      "text": "jjdavenport"
+    }
+  ]
 }
 ```
 
