@@ -1,12 +1,20 @@
 import { PostLink, Post } from "../components/content";
 import { useParams } from "react-router";
 
+type PostsType = {
+  id: string;
+  title: string;
+  month: string;
+  date: number;
+  year: number;
+};
+
 export const MainPage = () => {
   const postsData = import.meta.glob("../posts/*json", {
     eager: true,
     import: "default",
   });
-  const posts = Object.values(postsData);
+  const posts = Object.values(postsData) as PostsType[];
 
   console.log(posts);
 
@@ -47,11 +55,9 @@ export const PostPage = () => {
   const id = param.id;
 
   const postsData = import.meta.glob("../posts/*json", { eager: true });
-  const posts = Object.values(postsData);
+  const posts = Object.values(postsData) as FilteredDataType[];
 
-  const filteredData: FilteredDataType | undefined = posts.find(
-    (i) => i.id === id,
-  );
+  const filteredData = posts.find((i) => i.id === id);
 
   if (!filteredData) return;
 
