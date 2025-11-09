@@ -1,7 +1,6 @@
 {
   "title": "blog",
   "icon": "icon.svg",
-  "iconDarkMode": "icon-dark.svg",
   "links": [
     {
       "link": "https://github.com/jjdavenport",
