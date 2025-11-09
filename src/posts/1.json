@@ -4,5 +4,12 @@
   "month": "October",
   "date": 6,
   "year": 2025,
-  "content": ["text"]
+  "content": [
+    { "type": "text", "value": "text" },
+    {
+      "type": "image",
+      "src": "pexels-canvastudio-3194523.jpg",
+      "alt": "man typing on a laptop"
+    }
+  ]
 }

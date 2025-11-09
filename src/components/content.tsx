@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Sun, Moon } from "lucide-react";
 import useTheme from "../hooks/useTheme";
 import { Link } from "react-router";
+import config from "../assets/config.json";
 import Github from "../assets/github-icon-1-logo-svgrepo-com.svg?react";
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
@@ -25,7 +26,7 @@ export const Nav = ({ config }: { config: { title: string } }) => {
           </Link>
           <button
             aria-label={darkMode ? "light mode" : "dark mode"}
-            className="relative flex size-10 cursor-pointer items-center justify-center rounded-lg bg-gray-200 transition-colors hover:bg-gray-300 focus:outline-4 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:outline-white"
+            className="relative flex size-10 cursor-pointer items-center justify-center rounded-lg bg-gray-900/10 transition duration-300 ease-in-out hover:bg-gray-900/15 focus:outline-4 dark:bg-neutral-50/5 dark:hover:bg-neutral-50/10 dark:focus:outline-white"
             onClick={() => setDarkMode(!darkMode)}
           >
             <Sun
@@ -120,26 +121,50 @@ export const Post = ({
   year,
 }: {
   title: string;
-  content: string[];
+  content: [
+    {
+      type: string;
+      value: string;
+      src: string;
+      alt: string;
+    },
+  ];
   month: string;
   date: number;
   year: number;
 }) => {
   return (
     <>
-      <div className="flex w-full max-w-5xl flex-col gap-4">
-        <h2 className="text-4xl dark:text-white">{title}</h2>
+      <article className="flex w-full max-w-5xl flex-col gap-4">
+        <header>
+          <h1 className="text-4xl dark:text-white">{title}</h1>
+        </header>
         <span className="flex gap-1 dark:text-white">
           <span>{month}</span>
           <span>{`${date},`}</span>
           <span>{year}</span>
         </span>
-        {content.map((i, index) => (
-          <p key={index} className="text-white">
-            {i}
-          </p>
-        ))}
-      </div>
+        {content.map((i, index) => {
+          if (i.type === "text") {
+            return (
+              <p key={index} className="text-white">
+                {i.value}
+              </p>
+            );
+          }
+          if (i.type === "image") {
+            return (
+              <img
+                key={index}
+                className="dark:text-white"
+                src={`/${config.title}/${i.src}`}
+                alt={i.alt}
+              />
+            );
+          }
+          return null;
+        })}
+      </article>
     </>
   );
 };
