@@ -21,7 +21,11 @@ export const Nav = ({ config }: { config: { title: string } }) => {
     <>
       <nav className="flex w-full items-center justify-center border-b p-4 dark:border-b-white">
         <div className="flex w-full max-w-5xl items-center justify-between">
-          <Link to="" className="text-2xl hover:underline dark:text-white">
+          <Link
+            to=""
+            data-testid="title"
+            className="text-2xl hover:underline dark:text-white"
+          >
             {config.title}
           </Link>
           <button
@@ -121,14 +125,25 @@ export const Post = ({
   year,
 }: {
   title: string;
-  content: [
-    {
-      type: string;
-      value: string;
-      src: string;
-      alt: string;
-    },
-  ];
+  content: (
+    | {
+        type: "text";
+        value: string;
+      }
+    | {
+        type: "link";
+        value: string;
+        href: string;
+      }
+    | {
+        type: "image";
+        src: string;
+        alt: string;
+      }
+    | {
+        type: "div";
+      }
+  )[];
   month: string;
   date: number;
   year: number;
@@ -145,6 +160,35 @@ export const Post = ({
           <span>{year}</span>
         </span>
         {content.map((i, index) => {
+          if (i.type === "div") {
+            return <hr className="h-px w-full dark:text-white"></hr>;
+          }
+          if (Array.isArray(i)) {
+            return (
+              <p key={index} className="flex gap-1 text-white">
+                {i.map((i, index) => {
+                  if (i.type === "text") {
+                    return i.value;
+                  }
+                  if (i.type === "link" && i.value !== "") {
+                    return (
+                      <>
+                        <a
+                          key={index}
+                          href={i.href}
+                          target="_blank"
+                          className="text-blue-400 underline"
+                        >
+                          {i.value}
+                        </a>
+                      </>
+                    );
+                  }
+                  return null;
+                })}
+              </p>
+            );
+          }
           if (i.type === "text") {
             return (
               <p key={index} className="text-white">
@@ -160,6 +204,18 @@ export const Post = ({
                 src={`/${config.title}/${i.src}`}
                 alt={i.alt}
               />
+            );
+          }
+          if (i.type === "link" && i.value !== "") {
+            return (
+              <a
+                key={index}
+                href={i.href}
+                target="_blank"
+                className="text-blue-400 underline"
+              >
+                {i.value}
+              </a>
             );
           }
           return null;

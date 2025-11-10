@@ -47,14 +47,25 @@ type FilteredDataType = {
   date: number;
   year: number;
   title: string;
-  content: [
-    {
-      type: string;
-      value: string;
-      src: string;
-      alt: string;
-    },
-  ];
+  content: (
+    | {
+        type: "text";
+        value: string;
+      }
+    | {
+        type: "link";
+        value: string;
+        href: string;
+      }
+    | {
+        type: "image";
+        src: string;
+        alt: string;
+      }
+    | {
+        type: "div";
+      }
+  )[];
 };
 
 export const PostPage = () => {

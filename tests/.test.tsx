@@ -4,6 +4,7 @@ import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import App from "../src/App";
 import { MainPage } from "../src/pages/content";
+import config from "../src/assets/config.json";
 
 describe("renders the app home page in dark mode", () => {
   let matchMediaMock;
@@ -40,6 +41,10 @@ describe("renders the app home page in light mode", () => {
       "aria-label",
       "light mode",
     );
+  });
+
+  it("checks the nav title matches the config title", () => {
+    expect(screen.getByTestId("title").textContent).toMatch(config.title);
   });
 });
 
