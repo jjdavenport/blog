@@ -3,7 +3,7 @@
 <svg width="64px" height="64px" viewBox="0 -3.5 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet">
   <style type="text/css">
     path, g {
-      fill: #161614;
+      fill: #000;
     }
     @media (prefers-color-scheme: dark) {
       path, g {

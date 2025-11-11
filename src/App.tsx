@@ -16,7 +16,11 @@ function App() {
         <Main>
           <Outlet />
         </Main>
-        <Footer config={config} />
+        <Footer
+          title={config.title}
+          description={config.description}
+          links={config.links}
+        />
       </Wrapper>
     </>
   );

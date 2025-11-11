@@ -14,9 +14,8 @@ export const MainPage = () => {
     eager: true,
     import: "default",
   });
-  const posts = Object.values(postsData) as PostsType[];
 
-  console.log(posts);
+  const posts = Object.values(postsData) as PostsType[];
 
   return (
     <>

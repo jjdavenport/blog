@@ -3,7 +3,7 @@ import { Sun, Moon } from "lucide-react";
 import useTheme from "../hooks/useTheme";
 import { Link } from "react-router";
 import config from "../assets/config.json";
-import Github from "../assets/github-icon-1-logo-svgrepo-com.svg?react";
+import { Mail } from "lucide-react";
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return (
@@ -47,31 +47,72 @@ export const Nav = ({ config }: { config: { title: string } }) => {
 };
 
 export const Footer = ({
-  config,
+  title,
+  description,
+  links,
 }: {
-  config: {
-    title: string;
-    links: { link: string; text: string }[];
-  };
+  title: string;
+  description: string;
+  links: (
+    | {
+        link: boolean;
+        href: string;
+        value: string;
+        alt: string;
+        src: string;
+      }
+    | {
+        email: boolean;
+        href: string;
+      }
+  )[];
 }) => {
   return (
-    <>
-      <footer className="flex w-full justify-center border-t p-4 dark:border-t-white">
-        <div className="flex w-full max-w-5xl justify-between">
-          <span className="text-lg dark:text-white">{config.title}</span>
-          {config.links.map((i, index) => (
-            <a
-              key={index}
-              className="flex items-center gap-2 hover:underline dark:text-white"
-              href={i.link}
-            >
-              <Github className="size-6 dark:fill-white" />
-              {i.text}
-            </a>
-          ))}
+    <footer className="flex w-full justify-center border-t p-4 dark:border-t-white">
+      <div className="flex w-full max-w-5xl justify-between">
+        <div className="flex flex-col gap-4">
+          <span className="text-lg dark:text-white">{title}</span>
+          <p className="dark:text-white">{description}</p>
         </div>
-      </footer>
-    </>
+        <ul className="flex flex-col gap-4">
+          {links.map((i, index) => {
+            if ("link" in i && i.link) {
+              return (
+                <li key={index}>
+                  <a
+                    className="flex items-center gap-2 hover:underline dark:text-white"
+                    href={i.href}
+                  >
+                    <img
+                      className="size-6 dark:invert"
+                      src={i.src}
+                      alt={i.alt}
+                    />
+                    {i.value}
+                  </a>
+                </li>
+              );
+            }
+
+            if ("email" in i && i.email) {
+              return (
+                <li key={index}>
+                  <a
+                    className="flex items-center gap-2 hover:underline dark:text-white"
+                    href={`mailto:${i.href}`}
+                  >
+                    <Mail />
+                    {i.href}
+                  </a>
+                </li>
+              );
+            }
+
+            return null;
+          })}
+        </ul>
+      </div>
+    </footer>
   );
 };
 
