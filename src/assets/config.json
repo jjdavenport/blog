@@ -4,11 +4,11 @@
   "description": "Jekyll clone",
   "links": [
     {
-      "email": true,
+      "type": "email",
       "href": "example@mail.com"
     },
     {
-      "link": true,
+      "type": "link",
       "href": "https://github.com/jjdavenport",
       "value": "jjdavenport",
       "alt": "github logo",

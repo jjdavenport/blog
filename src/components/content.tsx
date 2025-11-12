@@ -4,6 +4,7 @@ import useTheme from "../hooks/useTheme";
 import { Link } from "react-router";
 import config from "../assets/config.json";
 import { Mail } from "lucide-react";
+import type { ConfigType } from "../types/type";
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return (
@@ -46,37 +47,17 @@ export const Nav = ({ config }: { config: { title: string } }) => {
   );
 };
 
-export const Footer = ({
-  title,
-  description,
-  links,
-}: {
-  title: string;
-  description: string;
-  links: (
-    | {
-        link: boolean;
-        href: string;
-        value: string;
-        alt: string;
-        src: string;
-      }
-    | {
-        email: boolean;
-        href: string;
-      }
-  )[];
-}) => {
+export const Footer = ({ config }: { config: ConfigType }) => {
   return (
     <footer className="flex w-full justify-center border-t p-4 dark:border-t-white">
       <div className="flex w-full max-w-5xl justify-between">
         <div className="flex flex-col gap-4">
-          <span className="text-lg dark:text-white">{title}</span>
-          <p className="dark:text-white">{description}</p>
+          <span className="text-lg dark:text-white">{config.title}</span>
+          <p className="dark:text-white">{config.description}</p>
         </div>
         <ul className="flex flex-col gap-4">
-          {links.map((i, index) => {
-            if ("link" in i && i.link) {
+          {config.links.map((i, index) => {
+            if (i.type === "link") {
               return (
                 <li key={index}>
                   <a
@@ -94,7 +75,7 @@ export const Footer = ({
               );
             }
 
-            if ("email" in i && i.email) {
+            if (i.type === "email") {
               return (
                 <li key={index}>
                   <a
