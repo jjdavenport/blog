@@ -55,18 +55,18 @@ export const Footer = ({ config }: { config: ConfigType }) => {
           <span className="text-lg dark:text-white">{config.title}</span>
           <p className="dark:text-white">{config.description}</p>
         </div>
-        <ul className="flex flex-col gap-4">
+        <ul className="flex h-fit w-fit max-w-sm flex-col gap-4 lg:flex-row lg:flex-wrap lg:justify-between">
           {config.links.map((i, index) => {
             if (i.type === "link") {
               return (
-                <li key={index}>
+                <li className="flex h-fit" key={index}>
                   <a
-                    className="flex items-center gap-2 hover:underline dark:text-white"
+                    className="flex w-fit items-center gap-2 hover:underline dark:text-white"
                     href={i.href}
                   >
                     <img
                       className="size-6 dark:invert"
-                      src={i.src}
+                      src={`/${config.title}/${i.src}`}
                       alt={i.alt}
                     />
                     {i.value}
@@ -77,9 +77,9 @@ export const Footer = ({ config }: { config: ConfigType }) => {
 
             if (i.type === "email") {
               return (
-                <li key={index}>
+                <li className="flex h-fit" key={index}>
                   <a
-                    className="flex items-center gap-2 hover:underline dark:text-white"
+                    className="flex w-fit items-center gap-2 hover:underline dark:text-white"
                     href={`mailto:${i.href}`}
                   >
                     <Mail />

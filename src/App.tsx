@@ -11,11 +11,7 @@ function App() {
   return (
     <>
       <title>{config.title}</title>
-      <link
-        rel="icon"
-        type="image/svg+xml"
-        href={`/${config.title}/${config.icon}`}
-      />
+      <link rel="icon" type="image/svg+xml" href={config.icon} />
       <Wrapper>
         <Nav config={config} />
         <Main>

@@ -9,15 +9,16 @@ Jekyll clone with json instead of markdown
 ```json
 {
   "title": "blog",
+  "homepage": "http://jjdavenport.gihub.io/blog",
   "icon": "icon.svg",
   "description": "Jekyll clone",
   "links": [
     {
-      "email": true,
+      "type": "email",
       "href": "example@mail.com"
     },
     {
-      "link": true,
+      "type": "link",
       "href": "https://github.com/jjdavenport",
       "value": "jjdavenport",
       "alt": "github logo",
@@ -61,4 +62,13 @@ Jekyll clone with json instead of markdown
     }
   ]
 }
+```
+
+## Scripts
+
+```json
+  "scripts": {
+    "deploy": "gh-pages -d dist",
+    "test": "vitest"
+  }
 ```
