@@ -187,7 +187,7 @@ export const Post = ({
           }
           if (Array.isArray(i)) {
             return (
-              <p key={index} className="flex gap-1 text-white">
+              <p key={index} className="flex gap-1 dark:text-white">
                 {i.map((i, index) => {
                   if (i.type === "text") {
                     return i.value;
@@ -213,7 +213,7 @@ export const Post = ({
           }
           if (i.type === "text") {
             return (
-              <p key={index} className="text-white">
+              <p key={index} className="dark:text-white">
                 {i.value}
               </p>
             );
