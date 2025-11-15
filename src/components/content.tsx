@@ -1,10 +1,11 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Sun, Moon } from "lucide-react";
 import useTheme from "../hooks/useTheme";
 import { Link } from "react-router";
 import config from "../assets/config.json";
 import { Mail } from "lucide-react";
-import type { ConfigType } from "../types/type";
+import type { ConfigType, PostLinkType, PostType } from "../types/type";
+import { Blurhash as BlurHash } from "react-blurhash";
 
 export const Wrapper = ({ children }: { children: ReactNode }) => {
   return (
@@ -97,19 +98,7 @@ export const Footer = ({ config }: { config: ConfigType }) => {
   );
 };
 
-export const PostLink = ({
-  title,
-  href,
-  month,
-  date,
-  year,
-}: {
-  href: string;
-  title: string;
-  month: string;
-  date: number;
-  year: number;
-}) => {
+export const PostLink = ({ title, href, month, date, year }: PostLinkType) => {
   return (
     <>
       <li className="flex flex-col gap-1">
@@ -139,37 +128,8 @@ export const Main = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const Post = ({
-  title,
-  content,
-  month,
-  date,
-  year,
-}: {
-  title: string;
-  content: (
-    | {
-        type: "text";
-        value: string;
-      }
-    | {
-        type: "link";
-        value: string;
-        href: string;
-      }
-    | {
-        type: "image";
-        src: string;
-        alt: string;
-      }
-    | {
-        type: "div";
-      }
-  )[];
-  month: string;
-  date: number;
-  year: number;
-}) => {
+export const Post = ({ title, content, month, date, year }: PostType) => {
+  const [loaded, setLoaded] = useState(false);
   return (
     <>
       <article className="flex w-full max-w-5xl flex-col gap-4">
@@ -183,7 +143,9 @@ export const Post = ({
         </span>
         {content.map((i, index) => {
           if (i.type === "div") {
-            return <hr className="h-px w-full dark:text-white"></hr>;
+            return (
+              <hr key={index} className="h-px w-full dark:text-white"></hr>
+            );
           }
           if (Array.isArray(i)) {
             return (
@@ -194,16 +156,14 @@ export const Post = ({
                   }
                   if (i.type === "link" && i.value !== "") {
                     return (
-                      <>
-                        <a
-                          key={index}
-                          href={i.href}
-                          target="_blank"
-                          className="text-blue-400 underline"
-                        >
-                          {i.value}
-                        </a>
-                      </>
+                      <a
+                        key={index}
+                        href={i.href}
+                        target="_blank"
+                        className="text-blue-400 underline"
+                      >
+                        {i.value}
+                      </a>
                     );
                   }
                   return null;
@@ -220,12 +180,32 @@ export const Post = ({
           }
           if (i.type === "image") {
             return (
-              <img
+              <div
                 key={index}
-                className="dark:text-white"
-                src={`/${config.title}/${i.src}`}
-                alt={i.alt}
-              />
+                className="relative aspect-video w-full overflow-hidden"
+              >
+                <div
+                  className="absolute inset-0 transition-opacity duration-500"
+                  style={{ opacity: loaded ? 0 : 1 }}
+                >
+                  <BlurHash
+                    hash="LCEous9G00-q*0%hMcM_0fxv-oVX"
+                    width="100%"
+                    height="100%"
+                    resolutionX={32}
+                    resolutionY={32}
+                    punch={1}
+                  />
+                </div>
+                <img
+                  loading="eager"
+                  src={`/${config.title}/${i.src}`}
+                  alt={i.alt}
+                  className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
+                  style={{ opacity: loaded ? 1 : 0 }}
+                  onLoad={() => setLoaded(true)}
+                />
+              </div>
             );
           }
           if (i.type === "link" && i.value !== "") {
